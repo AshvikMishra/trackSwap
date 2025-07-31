@@ -33,8 +33,8 @@ Amazon Music does not currently offer a public API for developers, making it dif
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/amazon-to-spotify
-cd amazon-to-spotify
+git clone https://github.com/AshvikMishra/trackSwap
+cd trackSwap
 pip install -r requirements.txt
 ```
 
@@ -55,11 +55,10 @@ python main.py
 ```
 
 
-1. Paste your Amazon Music **public** playlist link when prompted.  
-2. The script scrapes songs and saves raw data.  
-3. It cleans and processes the data.  
-4. You’ll be prompted to name the Spotify playlist (defaults to the original).  
-5. It will create the playlist and upload the found tracks.  
+1. Paste your Amazon Music **public** playlist link when prompted.
+2. The script scrapes songs and saves raw data.
+3. It cleans and processes the data.
+4. It will create the playlist and upload the found tracks.
 
 
 
@@ -75,7 +74,8 @@ python main.py
 
 - Ensure your Amazon Music playlist is **public** and fully loaded before scraping.  
 - Run in a clean desktop environment to avoid interference with GUI automation.  
-- Use a fresh Spotify token if facing authentication errors.  
+- Use a fresh Spotify token if facing authentication errors. 
+- If browser is not found then change it's directory in scraper.py
 
 
 
