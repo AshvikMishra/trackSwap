@@ -32,6 +32,7 @@ Create a `.env` file in your project directory and add the following:
 SPOTIPY_CLIENT_ID=your_spotify_client_id
 SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIPY_REDIRECT_URI=http://127.0.0.1:8000/callback
+```
 
 ## 📦 Installation
 
@@ -39,11 +40,13 @@ SPOTIPY_REDIRECT_URI=http://127.0.0.1:8000/callback
 git clone https://github.com/your-username/amazon-to-spotify
 cd amazon-to-spotify
 pip install -r requirements.txt
+```
 
 ## 🧪 Usage
 
 ```bash
 python main.py
+```
 
 
 1. Paste your Amazon Music **public** playlist link when prompted.  
