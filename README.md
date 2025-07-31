@@ -64,9 +64,9 @@ python main.py
 
 ## Output Folders
 
-- `scraping_data/amazon_playlist_raw.txt`: Raw extracted text  
-- `scraping_data/amazon_playlist.csv`: Cleaned playlist data  
-- `not_found_songs/`: Songs that couldn’t be matched on Spotify  
+- `scraping_data/amazon_playlist_raw.txt` : Raw extracted text  
+- `scraping_data/amazon_playlist.csv` : Cleaned playlist data  
+- `not_found_songs/` : Songs that couldn’t be matched on Spotify  
 
 
 
@@ -75,7 +75,7 @@ python main.py
 - Ensure your Amazon Music playlist is **public** and fully loaded before scraping.  
 - Run in a clean desktop environment to avoid interference with GUI automation.  
 - Use a fresh Spotify token if facing authentication errors. 
-- If browser is not found then change it's directory in scraper.py
+- If browser is not found then change it's directory in `scraper.py`
 
 
 
