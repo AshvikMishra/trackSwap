@@ -73,8 +73,8 @@ python main.py
 
 ## Output Folders
 
-- `scraping_data/amazon_playlist_raw.txt` : Raw extracted text  
-- `scraping_data/amazon_playlist.csv` : Cleaned playlist data  
+- `music_data/amazon_playlist_raw.txt` : Raw extracted text  
+- `music_data/amazon_playlist.csv` : Cleaned playlist data  
 - `not_found_songs/` : Songs that couldn’t be matched on Spotify  
 
 
