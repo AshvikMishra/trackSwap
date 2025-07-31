@@ -26,7 +26,7 @@ def main():
     open_incognito_chrome(playlist_url)
     time.sleep(20)
 
-    print("⌨️  Copying playlist content...")
+    print("⌨️ Copying playlist content...")
     pyautogui.hotkey("ctrl", "a")
     time.sleep(1)
     pyautogui.hotkey("ctrl", "c")

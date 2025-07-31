@@ -1,6 +1,15 @@
 # 🎵 Amazon Music to Spotify Playlist Converter
 
-Amazon Music does not currently offer a public API for developers, making it difficult to programmatically access or transfer playlists. To work around this limitation, this project uses GUI automation to scrape song data directly from public Amazon Music playlist web pages. Once extracted and cleaned, the script leverages Spotify’s robust Web API to recreate the exact same playlist on the user’s Spotify account — enabling seamless migration between platforms.
+Amazon Music does not currently offer a public API for developers, making it difficult to programmatically access or transfer playlists. To work around this limitation, this project uses **GUI automation** to scrape song data directly from public Amazon Music playlist web pages. Once extracted and cleaned, the script leverages **Spotify’s Web API** to recreate the exact same playlist on the user’s Spotify account — enabling seamless migration between platforms.
+
+In addition to the command-line interface, the project now includes a **modern PyQt5-based desktop GUI**, which provides:
+- A visually styled interface with dark mode
+- Real-time logs of scraping and uploading processes  
+- Prompted input collection through popup dialogs  
+- Easy-to-use buttons for starting or exiting the conversion  
+
+This makes the entire playlist transfer experience more user-friendly and accessible.
+
 
 <p align="center">
   <a href="https://skillicons.dev">
@@ -27,7 +36,7 @@ Amazon Music does not currently offer a public API for developers, making it dif
 - `spotipy` – Spotify Web API wrapper
 - `pandas`, `csv`, `re` – Data parsing and cleaning
 - `requests`, `dotenv`, `concurrent.futures`, `logging`, `os`, `sys`, `subprocess`, `time`, `random` – Utility & network handling
-
+- `PyQt5` – Desktop GUI for visual control and user input
 
 
 ## Installation

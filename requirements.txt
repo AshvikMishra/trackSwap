@@ -4,3 +4,4 @@ python-dotenv
 pyautogui
 pyperclip
 requests
+PyQt5>=5.15.0
