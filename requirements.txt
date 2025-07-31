@@ -1,0 +1,6 @@
+pandas
+spotipy
+python-dotenv
+pyautogui
+pyperclip
+requests
