@@ -26,7 +26,7 @@ This makes the entire playlist transfer experience more user-friendly and access
 - Recreates the playlist on Spotify with real track matching.
 - Logs unfound songs for review.
 - Multithreaded search for faster execution.
-- Organized output folders: `scraping_data/`, `not_found_songs/`
+- Organized output folders: `music_data/`, `not_found_songs/`
 
 
 
@@ -56,6 +56,8 @@ SPOTIPY_CLIENT_ID=your_spotify_client_id
 SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIPY_REDIRECT_URI=http://127.0.0.1:8000/callback
 ```
+
+Get these details by making a spotify developer account [here](https://developer.spotify.com/dashboard).
 
 ## Usage
 
