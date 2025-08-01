@@ -57,7 +57,7 @@ SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIPY_REDIRECT_URI=http://127.0.0.1:8000/callback
 ```
 
-Get these details by making a spotify developer account [here](https://developer.spotify.com/dashboard).
+Get these details by making a spotify developer account and application [here](https://developer.spotify.com/dashboard).
 
 ## Usage
 
