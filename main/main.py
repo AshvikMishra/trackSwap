@@ -15,19 +15,29 @@ from components import script
 import builtins
 import io
 
-class QTextEditLogger(io.StringIO):
+from PyQt5.QtCore import pyqtSignal, QObject
+
+class QTextEditLogger(QObject):
+    new_text = pyqtSignal(str)
+
     def __init__(self, text_edit):
         super().__init__()
         self.text_edit = text_edit
+        self.new_text.connect(self._append_text)
 
     def write(self, msg):
-        self.text_edit.moveCursor(QTextCursor.End)
-        self.text_edit.insertPlainText(msg)
-        self.text_edit.moveCursor(QTextCursor.End)
-        self.text_edit.ensureCursorVisible()
+        self.new_text.emit(str(msg))
 
     def flush(self):
         pass
+
+    def _append_text(self, msg):
+        cursor = self.text_edit.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        self.text_edit.setTextCursor(cursor)
+        self.text_edit.insertPlainText(msg)
+        self.text_edit.moveCursor(QTextCursor.End)
+        self.text_edit.ensureCursorVisible()
 
 class ConverterApp(QWidget):
     def __init__(self):
@@ -99,7 +109,9 @@ class ConverterApp(QWidget):
         self.setLayout(main_layout)
 
         # Redirect print to GUI
-        sys.stdout = QTextEditLogger(self.text_edit)
+        self.logger = QTextEditLogger(self.text_edit)
+        sys.stdout = self.logger
+        sys.stderr = self.logger  # optional: capture errors too
 
         # Setup input redirection
         self.input_queue = queue.Queue()

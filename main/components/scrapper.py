@@ -4,6 +4,18 @@ import time
 import subprocess
 import os
 import sys
+import platform
+
+# Determine OS-specific modifier key
+if platform.system() == "Darwin":
+    modifier = "command"
+    chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+elif platform.system() == "Windows":
+    modifier = "ctrl"
+    chrome_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+else:
+    print("❌ Unsupported operating system.")
+    sys.exit(1)
 
 # Folder setup
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,7 +25,6 @@ os.makedirs(SCRAPE_FOLDER, exist_ok=True)
 RAW_TEXT_FILE = os.path.join(SCRAPE_FOLDER, "amazon_playlist_raw.txt")
 
 def open_incognito_chrome(url):
-    chrome_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
     try:
         subprocess.Popen([chrome_path, "--incognito", url])
     except FileNotFoundError:
@@ -25,16 +36,16 @@ def main():
 
     print("🌐 Opening playlist in incognito Chrome...")
     open_incognito_chrome(playlist_url)
-    time.sleep(20)
+    time.sleep(20)  # Let page load
 
     print("⌨️ Copying playlist content...")
-    pyautogui.hotkey("ctrl", "a")
+    pyautogui.hotkey(modifier, "a")
     time.sleep(1)
-    pyautogui.hotkey("ctrl", "c")
+    pyautogui.hotkey(modifier, "c")
     time.sleep(1)
 
     print("🔒 Closing browser tab and switching to VSCode...")
-    pyautogui.hotkey("ctrl", "w")
+    pyautogui.hotkey(modifier, "w")
     time.sleep(1)
 
     raw_text = pyperclip.paste()
