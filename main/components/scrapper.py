@@ -6,7 +6,8 @@ import os
 import sys
 
 # Folder setup
-SCRAPE_FOLDER = "music_data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SCRAPE_FOLDER = os.path.join(BASE_DIR, "music_data")
 os.makedirs(SCRAPE_FOLDER, exist_ok=True)
 
 RAW_TEXT_FILE = os.path.join(SCRAPE_FOLDER, "amazon_playlist_raw.txt")

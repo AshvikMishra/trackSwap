@@ -8,9 +8,10 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QFont, QTextCursor
 from PyQt5.QtCore import Qt, QTimer
 
-import scrapper
-import cleaner
-import script
+from components import scrapper
+from components import cleaner
+from components import script
+
 import builtins
 import io
 

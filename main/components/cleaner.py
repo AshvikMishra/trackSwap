@@ -2,7 +2,8 @@ import os
 import csv
 import pandas as pd
 
-SCRAPE_FOLDER = "music_data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SCRAPE_FOLDER = os.path.join(BASE_DIR, "music_data")
 RAW_TEXT_FILE = os.path.join(SCRAPE_FOLDER, "amazon_playlist_raw.txt")
 CLEAN_CSV_FILE = os.path.join(SCRAPE_FOLDER, "amazon_playlist.csv")
 

@@ -36,8 +36,11 @@ def main():
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope), requests_session=session)
 
     # Extract playlist name from line 9 of the raw Amazon file
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    raw_file_path = os.path.join(BASE_DIR, "music_data", "amazon_playlist_raw.txt")
+
     try:
-        with open("music_data/amazon_playlist_raw.txt", "r", encoding="utf-8") as f:
+        with open(raw_file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
             playlist_name = lines[8].strip() if len(lines) >= 9 else "Converted from Amazon Music"
     except Exception as e:
@@ -51,7 +54,8 @@ def main():
         return re.sub(r'[^\w\-_. ]', '_', name)
 
     # Read CSV
-    df = pd.read_csv("music_data/amazon_playlist.csv")
+    csv_path = os.path.join(BASE_DIR, "music_data", "amazon_playlist.csv")
+    df = pd.read_csv(csv_path)
 
     # Create playlist
     user_id = sp.current_user()["id"]
