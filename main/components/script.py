@@ -75,6 +75,34 @@ def main():
         parts = re.split(r",|&|feat\.|Feat\.|featuring|Featuring", artist)
         return [clean_artist_name(p) for p in parts if p.strip()]
 
+    UNWANTED_KEYWORDS = [
+        "remix", "lofi", "lo-fi", "chill", "version", "cover", "mix", "edit",
+        "acoustic", "reverb", "slowed", "speedup", "sped up", "nightcore", "karaoke", "reprise"
+    ]
+
+    def normalize_text(s):
+        """
+        Lowercase, remove punctuation except spaces, and collapse multiple spaces.
+        """
+        s = s.lower()
+        s = re.sub(r"[^\w\s]", " ", s)  # replace punctuation with space
+        s = re.sub(r"\s+", " ", s)      # collapse spaces
+        return s.strip()
+
+    def is_unwanted_version(track_name, raw_track):
+        """
+        Return True if track_name looks like an unwanted variant
+        BUT allow if the original/raw track explicitly mentions the same keyword
+        (punctuation/spacing differences ignored).
+        """
+        norm_name = normalize_text(track_name)
+        norm_raw = normalize_text(raw_track)
+        for bad in UNWANTED_KEYWORDS:
+            bad_norm = normalize_text(bad)
+            if bad_norm in norm_name and bad_norm not in norm_raw:
+                return True
+        return False
+
     def search_track(raw_track, clean_track, artist):
         clean_track = clean_track.lower()
         artist_variants = expand_artists(artist)
@@ -84,18 +112,18 @@ def main():
             f"{clean_track}",
             f"{clean_track.split('-')[0].strip()} {artist}"
         ]
-        # Try variants with split artists
         for alt_artist in artist_variants:
             query_variants.append(f"track:{clean_track} artist:{alt_artist}")
             query_variants.append(f"{clean_track} {alt_artist}")
 
         for query in query_variants:
             try:
-                results = sp.search(q=query, type="track", limit=1)
+                results = sp.search(q=query, type="track", limit=5)
                 time.sleep(random.uniform(0.1, 0.3))  # throttle
                 items = results["tracks"]["items"]
-                if items:
-                    return (True, items[0]["uri"], raw_track, artist)
+                for item in items:
+                    if not is_unwanted_version(item["name"], raw_track):
+                        return (True, item["uri"], raw_track, artist)
             except HTTPError as e:
                 if e.response.status_code == 429:
                     retry_after = int(e.response.headers.get("Retry-After", 1))
