@@ -57,10 +57,51 @@ def main():
     csv_path = os.path.join(BASE_DIR, "music_data", "amazon_playlist.csv")
     df = pd.read_csv(csv_path)
 
-    # Create playlist
+    # Create or update playlist
     user_id = sp.current_user()["id"]
-    playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True)
-    playlist_id = playlist["id"]
+
+    # Check if playlist with the same name exists
+    existing_playlists = []
+    limit = 50
+    offset = 0
+    while True:
+        playlists = sp.current_user_playlists(limit=limit, offset=offset)
+        existing_playlists.extend(playlists['items'])
+        if playlists['next']:
+            offset += limit
+        else:
+            break
+
+    matched_playlist = None
+    for p in existing_playlists:
+        if p['name'].lower() == playlist_name.lower():
+            matched_playlist = p
+            break
+
+    if matched_playlist:
+        answer = input(f"Playlist named '{playlist_name}' already exists. Update existing playlist? [y/n]: ").strip().lower()
+        if answer == 'y':
+            playlist_id = matched_playlist['id']
+            # Clear existing tracks
+            print(f"🗑️ Clearing existing tracks from playlist '{playlist_name}'...")
+            # Spotify API does not provide a direct clear endpoint,
+            # so we remove all tracks in batches
+            while True:
+                current_tracks = sp.playlist_tracks(playlist_id, fields="items(track(uri)),next", limit=100)
+                uris_to_remove = [item['track']['uri'] for item in current_tracks['items'] if item['track']]
+                if not uris_to_remove:
+                    break
+                sp.playlist_remove_all_occurrences_of_items(playlist_id, uris_to_remove)
+            print("✅ Playlist cleared.")
+        else:
+            # Create new playlist with same name
+            playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True)
+            playlist_id = playlist["id"]
+    else:
+        # Create new playlist as usual
+        playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True)
+        playlist_id = playlist["id"]
+
 
     def clean_track_name(name):
         name = re.sub(r"\s*\([^)]*\)", "", name)  # remove (parentheses)
