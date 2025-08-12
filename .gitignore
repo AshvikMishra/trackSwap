@@ -209,3 +209,4 @@ __marimo__/
 # Ignore scraped and log output folders
 music_data/
 not_found_songs/
+main/playlists.txt

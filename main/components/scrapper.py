@@ -31,10 +31,15 @@ def open_incognito_chrome(url):
         print("❌ Chrome not found at the specified path.")
         sys.exit(1)
 
-def main():
-    playlist_url = input("🔗 Paste your Amazon Music playlist URL: ").strip()
+def main(playlist_url=None):
+    """
+    If playlist_url is provided, runs in non-interactive mode.
+    Otherwise, prompts user.
+    """
+    if not playlist_url:
+        playlist_url = input("🔗 Paste your Amazon Music playlist URL: ").strip()
 
-    print("🌐 Opening playlist in incognito Chrome...")
+    print(f"🌐 Opening playlist in incognito Chrome: {playlist_url}")
     open_incognito_chrome(playlist_url)
     time.sleep(20)  # Let page load
 
